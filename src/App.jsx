@@ -44,8 +44,6 @@ export default function App() {
 
 
 
-
-
       </section>
       {/* <hr className='mb-4' /> */}
       <section id='input-message' className='flex justify-center mt-auto border-t'>
