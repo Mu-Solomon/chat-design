@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function App() {
@@ -9,7 +9,18 @@ export default function App() {
 
   const [message, setMessage] = useState('');
   const [conversation, setConversation] = useState([]);
-  // const [aiResponse, setAiResponse] = useState(null);
+  useEffect(() => {
+    // Load the conversation array from localStorage when the component mounts
+    const storedConversation = localStorage.getItem('conversation');
+    if (storedConversation) {
+      setConversation(JSON.parse(storedConversation));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update localStorage whenever the conversation array changes
+    localStorage.setItem('conversation', JSON.stringify(conversation));
+  }, [conversation]);
   const handleMessage = (e) => {
     setMessage(e.target.value);
   }
