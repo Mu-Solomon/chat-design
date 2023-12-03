@@ -36,12 +36,21 @@ export default function App() {
       },
     })
       .then(response => {
-        // Update state with the AI response
-        const aiResponse = response.data.candidates[0].output;
-        // setAiResponse(response.data.candidates[0].output);
-        // setConversation([...conversation, { type: 'ai', text: { prompt: { text: aiResponse } } }]);
+        const regex = /(?:solomon|muyonjo)/i;
 
-        setConversation(prevConversation => [...prevConversation, { type: 'ai', text: { prompt: { text: aiResponse } } }]);
+        // Check if the message includes the specified words
+        if (regex.test(userMessage.prompt.text)) {
+          // Respond with a specific message
+          setConversation(prevConversation => [...prevConversation, { type: 'ai', text: { prompt: { text: "Yes, he is a webmaster and fullstack developer" } } }]);
+        } else { // Update state with the AI response
+          const aiResponse = response.data.candidates[0].output;
+          // setAiResponse(response.data.candidates[0].output);
+          // setConversation([...conversation, { type: 'ai', text: { prompt: { text: aiResponse } } }]);
+
+          setConversation(prevConversation => [...prevConversation, { type: 'ai', text: { prompt: { text: aiResponse } } }]);
+
+        }
+
       })
       .catch(error => {
         // Handle errors
@@ -82,42 +91,11 @@ export default function App() {
 
       <section id='conversation' className='max-h-96 overflow-y-auto'>
 
-        {/*  */}
-        {/* <div className='flex justify-start ml-4'>
-          <span className='bot-reply text-left p-2 rounded-3xl text-sm  max-w-xs border border-[#00b6ff]'>{aiResponse}</span>
 
-        </div> */}
-
-        {/* 
-        <div className='flex justify-end my-4 mr-2'><span className='user-msg bg-gradient-to-br from-myCustomBlue  to-myCustomCyan text-white  p-4 rounded-3xl text-sm  max-w-xs'>Hello, please help me with my and then what happens!</span>
-        </div>
         <div className='flex justify-start ml-4'>
-          <span className='bot-reply text-left p-2 rounded-3xl text-sm  max-w-xs border border-[#00b6ff]'>Hi, how can I assist you today?</span>
+          <span className='bot-reply text-left p-2 rounded-3xl text-sm  max-w-xs border border-[#00b6ff]'>With God's grace, I proudly present this AI, a result of effort and faith. Developed by Muyonjo Solomon, acknowledging divine inspiration in every line of code.</span>
 
         </div>
-
-        <div className='flex justify-end my-4 mr-2'><span className='user-msg bg-gradient-to-br from-myCustomBlue  to-myCustomCyan text-white  p-4 rounded-3xl text-sm  max-w-xs'> Do you know the experience of having fun!</span>
-        </div>
-
-        <div className='flex justify-start ml-4 my-4'>
-          <span className='bot-reply text-left p-2 rounded-3xl text-sm  max-w-xs border border-[#00b6ff]'> You can also combine the border utility classes with other Tailwind CSS classes to further customize the appearance of your elements. For instance, to add margin and padding to the element, you would use the following code: </span>
-
-        </div>
-        <div className='flex justify-end my-4 mr-2'><span className='user-msg bg-gradient-to-br from-myCustomBlue  to-myCustomCyan text-white  p-4 rounded-3xl text-sm  max-w-xs'> Have you ever been in love!</span>
-        </div>
-
-        <div className='flex justify-start ml-4 my-4'>
-          <span className='bot-reply text-left p-2 rounded-3xl text-sm  max-w-xs border border-[#00b6ff]'> I can't open or access external links, including the one you provided. However, if you have specific questions or if there's a particular topic you're interested in, feel free to ask, and I'll do my best to help! If you have a summary or specific points from the article that you'd like more information on or discussed, feel free to share those as well.</span>
-
-        </div>
-
-
- */}
-
-<div className='flex justify-start ml-4'>
-  <span className='bot-reply text-left p-2 rounded-3xl text-sm  max-w-xs border border-[#00b6ff]'>With God's grace, I proudly present this AI, a result of effort and faith. Developed by Muyonjo Solomon, acknowledging divine inspiration in every line of code.</span>
-
-</div>
 
         {conversation.map((item, index) => (
           <div key={index}>
